@@ -1,0 +1,32 @@
+{
+  "name": "nonamegrapher",
+  "version": "1.0.0",
+  "description": "Graphing Engine. Successor to my HKU SPACE final-year project.",
+  "main": "HTML5Grid.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lolo8vbdjsk81a/nonamegrapher.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/lolo8vbdjsk81a/nonamegrapher/issues"
+  },
+  "homepage": "https://github.com/lolo8vbdjsk81a/nonamegrapher#readme",
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.3"
+  },
+  "private": true,
+  "license": "MIT"
+}

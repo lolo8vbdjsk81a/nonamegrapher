@@ -1,0 +1,5 @@
+services:
+  nonamegrapher:
+    build: .
+    ports:
+      - "31415:80"
