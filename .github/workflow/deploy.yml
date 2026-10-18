@@ -7,11 +7,11 @@ on:
 permissions:
   id-token: write
 
-jobs:
+obs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Tailscale
+      - name: Connect to Tailscale
         uses: tailscale/github-action@v4
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
@@ -19,15 +19,16 @@ jobs:
           tags: tag:ci
 
       - name: Deploy to VPS
+        env:
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/github-actions-nonamegrapher
-          chmod 600 ~/.ssh/github-actions-nonamegrapher
-          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "
-            cd ~/docker/nonamegrapher &&
-            git pull &&
-            docker compose down &&
-            docker compose build --no-cache &&
+          tailscale ssh "$VPS_USER@$VPS_HOST" '
+            set -eu
+            cd ~/docker/nonamegrapher
+            git pull --ff-only
+            docker compose config --quiet
+            docker compose build
             docker compose up -d
-          "
+          '
 
